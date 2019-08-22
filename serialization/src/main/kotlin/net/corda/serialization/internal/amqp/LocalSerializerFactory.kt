@@ -90,6 +90,7 @@ class DefaultLocalSerializerFactory(
         override val classloader: ClassLoader,
         private val descriptorBasedSerializerRegistry: DescriptorBasedSerializerRegistry,
         private val customSerializerRegistry: CustomSerializerRegistry,
+        private val primitiveSerializer: (Class<*>) -> AMQPSerializer<Any>,
         private val onlyCustomSerializers: Boolean)
     : LocalSerializerFactory {
 
@@ -237,7 +238,7 @@ class DefaultLocalSerializerFactory(
                 throw AMQPNotSerializableException(
                         type,
                         "Serializer does not support synthetic classes")
-            AMQPTypeIdentifiers.isPrimitive(typeInformation.typeIdentifier) -> AMQPPrimitiveSerializer(clazz)
+            AMQPTypeIdentifiers.isPrimitive(typeInformation.typeIdentifier) -> primitiveSerializer(clazz)
             else -> makeNonCustomSerializer(type, typeInformation, clazz)
         }
     }

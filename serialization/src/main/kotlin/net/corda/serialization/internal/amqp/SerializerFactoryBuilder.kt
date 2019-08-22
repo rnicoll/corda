@@ -105,6 +105,7 @@ object SerializerFactoryBuilder {
                 classCarpenter.classloader,
                 descriptorBasedSerializerRegistry,
                 customSerializerRegistry,
+                ::AMQPPrimitiveSerializer,
                 onlyCustomSerializers)
 
         val typeLoader: TypeLoader = ClassCarpentingTypeLoader(
