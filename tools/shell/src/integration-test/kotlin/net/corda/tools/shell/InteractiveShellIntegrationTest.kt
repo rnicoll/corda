@@ -420,8 +420,7 @@ class InteractiveShellIntegrationTest {
 
             aliceNode.rpc.startFlow(::SendFlow, bobNode.nodeInfo.singleIdentity())
 
-            InteractiveShell.runRPCFromString(
-                    listOf("dumpCheckpoints"), output, mock(), aliceNode.rpc as InternalCordaRPCOps, inputObjectMapper)
+            InteractiveShell.runDumpCheckpoints(aliceNode.rpc as InternalCordaRPCOps)
 
             // assert that the checkpoint dump zip has been created
             val zip = (aliceNode.baseDirectory / NodeStartup.LOGS_DIRECTORY_NAME).list()
